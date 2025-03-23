@@ -9,7 +9,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import FormFieldOk from "./FormField";
 import { useRouter } from "next/navigation";
-
+import { signupUser } from "@/lib/api";
 
 
 
@@ -35,18 +35,21 @@ const AuthForm = ({type} : {type : FormType}) => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const {name, email, password} = values;
     try {
         if(type === 'sign-up') {
+            const response = await signupUser(name!, email, password)
+            console.log(response)
             toast.success('Account created successfully. Please sign in.')
             router.push('/sign-in')
         }  else {
             toast.success('Sign in successfully.')
             router.push('/')
         }
-    } catch (error) {
+    } catch (error : any) {
         console.log(error);
-        toast.error(`There was an error: ${error} `)
+        toast.error(`${error.message} `)
     }
   }
 
@@ -56,7 +59,7 @@ const AuthForm = ({type} : {type : FormType}) => {
     <div className="card-border lg:min-w-[566px]">
         <div className="flex flex-col gap-6 card py-14 px-10">
             <div className="flex flex-row gap-2 justify-center">
-                <Image src={"./logo.svg"} alt="logo" height={32} width={38}/>
+                <Image src={"./logo.svg"} alt="logo" height={32} width={38} className="h-auto w-auto"/>
                 <h2 className="text-primary-100">XPrep</h2>
             </div>
             <h3 className="flex items-center justify-center">Pratice job interview with AI</h3>
