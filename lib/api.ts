@@ -17,3 +17,21 @@ export async function signupUser(name: string, email: string, password: string) 
         throw new Error(error.message || "Something went wrong.");
     }
 }
+
+export async function loginUser(email: string, password: string) {
+
+    const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        credentials: "include"
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+        throw new Error(data.error || "Login failed.");
+    }
+
+    return data;
+
+}

@@ -9,7 +9,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import FormFieldOk from "./FormField";
 import { useRouter } from "next/navigation";
-import { signupUser } from "@/lib/api";
+import { loginUser, signupUser } from "@/lib/api";
 
 
 
@@ -44,6 +44,8 @@ const AuthForm = ({type} : {type : FormType}) => {
             toast.success('Account created successfully. Please sign in.')
             router.push('/sign-in')
         }  else {
+            const response = await loginUser(email, password)
+            console.log(response)
             toast.success('Sign in successfully.')
             router.push('/')
         }
