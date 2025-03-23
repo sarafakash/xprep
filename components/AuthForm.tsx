@@ -59,7 +59,7 @@ const AuthForm = ({type} : {type : FormType}) => {
                 <Image src={"./logo.svg"} alt="logo" height={32} width={38}/>
                 <h2 className="text-primary-100">XPrep</h2>
             </div>
-            <h3>Pratice job interview with AI</h3>
+            <h3 className="flex items-center justify-center">Pratice job interview with AI</h3>
 
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 mt-4 form">

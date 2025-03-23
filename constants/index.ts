@@ -203,3 +203,62 @@ export const interviewCovers = [
   "/tiktok.png",
   "/yahoo.png",
 ];
+
+
+export const dummyInterviews: Interview[] = [
+  {
+    id: "1",
+    userId: "user1",
+    role: "Frontend Developer",
+    type: "Technical",
+    techstack: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    level: "Junior",
+    questions: ["What is React?", "How does useState work?", "Explain the virtual DOM."],
+    finalized: false,
+    createdAt: "2024-03-15T10:00:00Z"
+  },
+  {
+    id: "2",
+    userId: "user2",
+    role: "Backend Developer",
+    type: "Technical",
+    techstack: ["Node.js", "Express", "MongoDB", "Redis"],
+    level: "Mid-Level",
+    questions: ["How does event-driven architecture work in Node.js?", "Explain the difference between SQL and NoSQL databases."],
+    finalized: true,
+    createdAt: "2024-03-16T14:30:00Z"
+  },
+  {
+    id: "3",
+    userId: "user3",
+    role: "Full Stack Developer",
+    type: "Behavioral",
+    techstack: ["React", "Node.js", "PostgreSQL", "Docker"],
+    level: "Senior",
+    questions: ["Tell me about a challenging project you've worked on.", "How do you handle conflicts in a team?"],
+    finalized: false,
+    createdAt: "2024-03-17T09:45:00Z"
+  },
+  {
+    id: "4",
+    userId: "user4",
+    role: "Data Scientist",
+    type: "Technical",
+    techstack: ["Python", "TensorFlow", "Scikit-Learn", "SQL"],
+    level: "Mid-Level",
+    questions: ["Explain the difference between supervised and unsupervised learning.", "What are the assumptions of a linear regression model?"],
+    finalized: true,
+    createdAt: "2024-03-18T12:15:00Z"
+  },
+  {
+    id: "5",
+    userId: "user5",
+    role: "DevOps Engineer",
+    type: "Technical",
+    techstack: ["AWS", "Docker", "Kubernetes", "Terraform"],
+    level: "Senior",
+    questions: ["How do you manage infrastructure as code?", "What is the difference between Docker and Kubernetes?"],
+    finalized: false,
+    createdAt: "2024-03-19T08:30:00Z"
+  }
+];
