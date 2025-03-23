@@ -40,17 +40,24 @@ const AuthForm = ({type} : {type : FormType}) => {
     try {
         if(type === 'sign-up') {
             const response = await signupUser(name!, email, password)
-            console.log(response)
+            if(!response.success) {
+                toast.error(response.message);
+                return;
+            }
             toast.success('Account created successfully. Please sign in.')
             router.push('/sign-in')
+            
+
         }  else {
             const response = await loginUser(email, password)
-            console.log(response)
+            if(!response.success) {
+                toast.error(response.message);
+                return;
+            }
             toast.success('Sign in successfully.')
             router.push('/')
         }
     } catch (error : any) {
-        console.log(error);
         toast.error(`${error.message} `)
     }
   }

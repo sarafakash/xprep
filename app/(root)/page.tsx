@@ -14,7 +14,7 @@ const page = () => {
           <p className='text-[12px] md:text-md lg:text-3xl'>
             Practice on real interview questions & get instant feedback
           </p>
-          <Button asChild className= "btn-primary max-sm:w-full">
+          <Button asChild className= "btn-primary max-sm:w-full ring-2 ring-amber-400 hover:ring-amber-500">
             <Link href={"/interview"}>Start and Interview</Link>
           </Button>
         </div>

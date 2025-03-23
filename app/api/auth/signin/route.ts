@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
 
-const prisma = new PrismaClient();
 
 export async function POST(req : Request) {
     try {
@@ -21,19 +20,19 @@ export async function POST(req : Request) {
         })
 
         if(!findUserExists)
-            return NextResponse.json({error : "Email not found. Try again or sign up."}, {status : 401})
+            return NextResponse.json({success : false, message : "Email does not exists. Try again or sign up."}, {status : 401});
 
         const unhashedPassword = await bcrypt.compare(password, findUserExists.password);
         if(!unhashedPassword)
-            return NextResponse.json({error : "Invalid Credentials"}, {status : 401})
+            return NextResponse.json({success : false, message : "Invalid credentials."}, {status : 401})
 
         const token = jwt.sign({email}, jwtsecret, {expiresIn : "1h"})
 
-        const response = NextResponse.json({message: "Logged in successfully"});
+        const response = NextResponse.json({message: "Logged in successfully", success : true },{status:201});
 
         response.headers.set(
-            "Set-cookie",
-            serialize("auth-token", token, {
+            "Set-Cookie",
+            serialize("auth_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
