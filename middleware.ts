@@ -1,44 +1,63 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import * as jose from 'jose';  // Import jose library
 
-export function middleware(request: NextRequest) {
-  // Define public paths that do not require authentication.
-  const publicPaths = ['/sign-in', '/sign-up'];
-  const { pathname } = request.nextUrl;
-  
-  // Skip middleware for static files and public assets
-  if (
-    pathname.startsWith('/_next/') ||  // Next.js static files
-    pathname.startsWith('/static/') || // Custom static folder (if used)
-    pathname.startsWith('/public/') || // Public folder (not needed but safe)
-    pathname.endsWith('.png') ||       // Images
-    pathname.endsWith('.jpg') ||
-    pathname.endsWith('.jpeg') ||
-    pathname.endsWith('.svg') ||
-    pathname.endsWith('.css') ||       // Stylesheets
-    pathname.endsWith('.js')           // JavaScript files
-  ) {
-    return NextResponse.next();
-  }
+export async function middleware(request: NextRequest) {
+
+    const jwtSecret = process.env.NEXT_PUBLIC_JWT_SECRET as string; // Change to JWT_SECRET (not exposed)
+
+    if (!jwtSecret) {
+        console.error("JWT secret is missing. Set JWT_SECRET in .env file.");
+        return NextResponse.json({ error: "Server error" }, { status: 500 });
+    }
+
+    const { pathname } = request.nextUrl;
+
+    const publicPaths = ['/sign-in', '/sign-up'];
+    if (publicPaths.includes(pathname)) {
+        return NextResponse.next();
+    }
 
 
-  if (publicPaths.some((path) => pathname.startsWith(path))) {
-    return NextResponse.next();
-  }
-  
+    if (
+        pathname.startsWith('/_next/') ||
+        pathname.startsWith('/static/') ||
+        pathname.startsWith('/public/') ||
+        pathname.endsWith('.png') ||
+        pathname.endsWith('.jpg') ||
+        pathname.endsWith('.jpeg') ||
+        pathname.endsWith('.svg') ||
+        pathname.endsWith('.css') ||
+        pathname.endsWith('.js')
+    ) {
+        return NextResponse.next();
+    }
 
-  const token = request.cookies.get('auth_token')?.value;
-  
 
-  if (!token) {
-    return NextResponse.redirect(new URL('/sign-in', request.url));
-  }
-  
-  // Otherwise, let the request continue.
-  return NextResponse.next();
+    const token = request.cookies.get('auth_token')?.value;
+
+    if (token) {
+        try {
+ 
+            const { payload } = await jose.jwtVerify(token, new TextEncoder().encode(jwtSecret));
+
+            console.log("JWT Valid:", payload);
+            return NextResponse.next(); 
+        } catch (error :any) {
+            console.error("JWT Verification Error:", error);
+
+            if (error.code === 'ERR_JWT_EXPIRED') {
+                console.warn("Token expired, redirecting to sign-in...");
+            }
+
+            return NextResponse.redirect(new URL('/sign-in', request.url)); 
+        }
+    }
+
+    console.warn("No token found, redirecting to sign-in...");
+    return NextResponse.redirect(new URL('/sign-in', request.url)); 
 }
 
-// Optionally, specify the paths to which this middleware applies.
+
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|public|static|sign-in|sign-up).*)'],
 };

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import * as jose from 'jose'; 
 
 
 
@@ -26,13 +27,24 @@ export async function POST(req : Request) {
         if(!unhashedPassword)
             return NextResponse.json({success : false, message : "Invalid credentials."}, {status : 401})
 
-        const token = jwt.sign({email}, jwtsecret, {expiresIn : "1h"})
+        console.log("debug1")
+
+        let token;
+
+        try {
+            token = await new jose.SignJWT({ email }) // Include payload properly
+                .setProtectedHeader({ alg: "HS256" }) // Set algorithm
+                .setExpirationTime("1h") // Expiration time
+                .sign(new TextEncoder().encode(jwtsecret));
+        } catch (error) {
+            console.error("JWT Signing Error:", error);     
+        }
 
         const response = NextResponse.json({message: "Logged in successfully", success : true },{status:201});
 
         response.headers.set(
             "Set-Cookie",
-            serialize("auth_token", token, {
+            serialize("auth_token", token!, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
