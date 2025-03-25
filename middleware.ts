@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import * as jose from 'jose';  // Import jose library
 
 export async function middleware(request: NextRequest) {
-
+    // Use secure environment variable (remove NEXT_PUBLIC_ for security)
     const jwtSecret = process.env.NEXT_PUBLIC_JWT_SECRET as string; // Change to JWT_SECRET (not exposed)
 
     if (!jwtSecret) {
@@ -12,12 +12,13 @@ export async function middleware(request: NextRequest) {
 
     const { pathname } = request.nextUrl;
 
+    // ✅ Allow public pages without authentication
     const publicPaths = ['/sign-in', '/sign-up'];
     if (publicPaths.includes(pathname)) {
         return NextResponse.next();
     }
 
-
+    // ✅ Allow static assets (CSS, JS, images)
     if (
         pathname.startsWith('/_next/') ||
         pathname.startsWith('/static/') ||
@@ -31,7 +32,6 @@ export async function middleware(request: NextRequest) {
     ) {
         return NextResponse.next();
     }
-
 
     const token = request.cookies.get('auth_token')?.value;
 

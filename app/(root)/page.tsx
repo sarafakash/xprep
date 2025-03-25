@@ -4,7 +4,7 @@ import { dummyInterviews } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const page = () => {
+const page =  async () => {
   return (
     <>
       <section className='card-cta'>

@@ -1,14 +1,13 @@
-import { cookies} from "next/headers"
-import { NextResponse } from "next/server"
-import * as jose from 'jose'; 
-import { prisma } from "@/lib/prisma";
+import { cookies } from "next/headers";
+import * as jose from 'jose';
+import { prisma } from "./prisma";
 
-export async function GET(){
+export async function getCurrentUser(){
     const cookieStore = await cookies();
     const token = cookieStore.get("auth_token")?.value;
     let email;
     if(!token)
-        return NextResponse.json({sucess: false, message: "Token Error."}, {status: 401})
+        return null;
 
     try {
         const jwtSecret = process.env.NEXT_PUBLIC_JWT_SECRET as string;
@@ -16,14 +15,14 @@ export async function GET(){
         email = payload.email;
 
     } catch (error) {
-        return NextResponse.json({sucess: false, message: "Decode Error."}, {status: 401})
+        return null;
     }
 
     try {
         const userData = await prisma.user.findUnique({where : {email : email as string}, select: {id : true,name: true, email: true}})
-        return NextResponse.json(userData)
+        return userData;
     } catch (error) {
-        return NextResponse.json({sucess: false, message: "DB call failed."}, {status: 401})
+        return null;
   
     }
 }
