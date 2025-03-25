@@ -12,7 +12,10 @@ export async function GET() {
 export async function POST(request: NextRequest){
     const body = await request.json();
     console.log("Received Payload:", body); 
-    const {type, role, level, techstack, amount, userid} = await request.json();
+    const {type, role, level, techstack} = await request.json();
+
+    const amount = parseInt(body.amount, 10);
+    const userid = parseInt(body.userid, 10);
     try {
 
         const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
