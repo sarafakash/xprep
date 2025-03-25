@@ -17,6 +17,8 @@ export async function POST(request: NextRequest){
 
     const amountInt = parseInt(amount, 10);
     const useridInt = parseInt(userid, 10);
+    const techstackArray = techstack.split(',').map((s: string) => s.trim());
+
     try {
 
         const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
@@ -49,7 +51,7 @@ export async function POST(request: NextRequest){
             type, 
             level, 
             amount : amountInt,
-            techstack,
+            techstack: techstackArray,
             questions: JSON.parse(questions), 
             userId: useridInt, 
             finalized: false, 
