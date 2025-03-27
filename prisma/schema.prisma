@@ -38,3 +38,15 @@ model Interview {
   user User @relation(fields: [userId],references: [id])
 
 }
+
+model Feedback {
+  id Int @id @default(autoincrement())
+  interviewId Int
+  userId Int
+  totalScore Int
+  strengths String[]
+  areasForImprovement String[]
+  finalAssessment String
+  categoryScores Json
+  createdAt DateTime @default(now())
+}

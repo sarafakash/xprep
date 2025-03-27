@@ -115,6 +115,7 @@ export const interviewer: CreateAssistantDTO = {
     style: 0.5,
     useSpeakerBoost: true,
   },
+  backgroundSound: 'office',
   model: {
     provider: "openai",
     model: "gpt-4",
@@ -207,8 +208,8 @@ export const interviewCovers = [
 
 export const dummyInterviews: Interview[] = [
   {
-    id: "1",
-    userId: "user1",
+    id: 1,
+    userId: 1,
     role: "Frontend Developer",
     type: "Technical",
     techstack: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
@@ -218,8 +219,8 @@ export const dummyInterviews: Interview[] = [
     createdAt: "2024-03-15T10:00:00Z"
   },
   {
-    id: "2",
-    userId: "user2",
+    id: 2,
+    userId: 2,
     role: "Backend Developer",
     type: "Technical",
     techstack: ["Node.js", "Express", "MongoDB", "Redis"],
@@ -229,8 +230,8 @@ export const dummyInterviews: Interview[] = [
     createdAt: "2024-03-16T14:30:00Z"
   },
   {
-    id: "3",
-    userId: "user3",
+    id: 3,
+    userId: 3,
     role: "Full Stack Developer",
     type: "Behavioral",
     techstack: ["React", "Node.js", "PostgreSQL", "Docker"],
@@ -240,8 +241,8 @@ export const dummyInterviews: Interview[] = [
     createdAt: "2024-03-17T09:45:00Z"
   },
   {
-    id: "4",
-    userId: "user4",
+    id: 4,
+    userId: 4,
     role: "Data Scientist",
     type: "Technical",
     techstack: ["Python", "TensorFlow", "Scikit-Learn", "SQL"],
@@ -251,8 +252,8 @@ export const dummyInterviews: Interview[] = [
     createdAt: "2024-03-18T12:15:00Z"
   },
   {
-    id: "5",
-    userId: "user5",
+    id: 5,
+    userId: 5,
     role: "DevOps Engineer",
     type: "Technical",
     techstack: ["AWS", "Docker", "Kubernetes", "Terraform"],

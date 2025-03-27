@@ -39,8 +39,6 @@ export async function middleware(request: NextRequest) {
         try {
  
             const { payload } = await jose.jwtVerify(token, new TextEncoder().encode(jwtSecret));
-
-            console.log("JWT Valid:", payload);
             return NextResponse.next(); 
         } catch (error :any) {
             console.error("JWT Verification Error:", error);

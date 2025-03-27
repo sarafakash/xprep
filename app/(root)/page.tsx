@@ -1,10 +1,16 @@
 import InterviewCard from '@/components/InterviewCard'
 import { Button } from '@/components/ui/button'
 import { dummyInterviews } from '@/constants'
+import { getCurrentUser, getInterviewByUserId } from '@/lib/dbactions'
 import Image from 'next/image'
 import Link from 'next/link'
 
 const page =  async () => {
+  const user = await getCurrentUser();
+  const userInterviews = await getInterviewByUserId(user?.id!);
+
+  const hasPastInterviews = userInterviews?.length! > 0;
+
   return (
     <>
       <section className='card-cta'>
@@ -24,11 +30,17 @@ const page =  async () => {
       </section>
 
       <section className='flex flex-col mt-8 gap-6'>
-        <h2>Your Past Interviews</h2>
+        <h2>Your Interviews</h2>
         <div className='interviews-section'>
-          {dummyInterviews.map((interview)=>(
-            <InterviewCard {...interview} key={interview.id}/>
-          ))}
+          {
+            hasPastInterviews? (
+              userInterviews?.map((interview)=>(
+                <InterviewCard {...interview} key={interview.id}/>
+              ))
+            ) : (
+                  <p>There are no interviews avaliable.</p>
+            )
+          }
         </div>
       </section>
 

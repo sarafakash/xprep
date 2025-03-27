@@ -1,6 +1,6 @@
 interface Feedback {
-  id: string;
-  interviewId: string;
+  id: number;
+  interviewId: number;
   totalScore: number;
   categoryScores: Array<{
     name: string;
@@ -10,48 +10,48 @@ interface Feedback {
   strengths: string[];
   areasForImprovement: string[];
   finalAssessment: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 interface Interview {
-  id: string;
+  id: number;
   role: string;
   level: string;
   questions: string[];
   techstack: string[];
-  createdAt: string;
-  userId: snumber
+  createdAt: Date;
+  userId: number
   type: string;
   finalized: boolean;
 }
 
 interface CreateFeedbackParams {
-  interviewId: string;
-  userId: snumber
+  interviewId: number;
+  userId: number
   transcript: { role: string; content: string }[];
-  feedbackId?: string;
+  feedbackId?: number;
 }
 
 interface User {
   name: string;
   email: string;
-  id: string;
+  id: number;
 }
 
 interface InterviewCardProps {
-  interviewId?: string;
+  id?: number;
   userId?: number;
   role: string;
   type: string;
   techstack: string[];
-  createdAt?: string;
+  createdAt?: Date;
 }
 
 interface AgentProps {
   userName: string;
   userId?: number;
-  interviewId?: string;
-  feedbackId?: string;
+  interviewId?: number;
+  feedbackId?: number;
   type: "generate" | "interview";
   questions?: string[];
 }
@@ -62,12 +62,12 @@ interface RouteParams {
 }
 
 interface GetFeedbackByInterviewIdParams {
-  interviewId: string;
-  userId: snumber
+  interviewId: number;
+  userId: number
 }
 
 interface GetLatestInterviewsParams {
-  userId: snumber
+  userId: number
   limit?: number;
 }
 
