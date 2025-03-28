@@ -20,8 +20,8 @@ const page =  async () => {
           <p className='text-[12px] md:text-md lg:text-3xl'>
             Practice on real interview questions & get instant feedback
           </p>
-          <Button asChild className= "btn-primary max-sm:w-full ring-2 ring-amber-400 hover:ring-amber-500">
-            <Link href={"/interview"}>Start and Interview</Link>
+          <Button asChild className= "btn-primary max-sm:w-full ring-2 ring-offset-dark-100 hover:ring-white">
+            <Link href={"/interview"}>Generate an Interview</Link>
           </Button>
         </div>
 
@@ -30,7 +30,7 @@ const page =  async () => {
       </section>
 
       <section className='flex flex-col mt-8 gap-6'>
-        <h2>Your Interviews</h2>
+        <h2>Your Generated Interviews</h2>
         <div className='interviews-section'>
           {
             hasPastInterviews? (
@@ -44,7 +44,7 @@ const page =  async () => {
         </div>
       </section>
 
-      <section className='flex flex-col mt-8 gap-6'>
+      {/* <section className='flex flex-col mt-8 gap-6'>
         <h2>Take an Interview</h2>
         <div className='interviews-section'>
         {dummyInterviews.map((interview)=>(
@@ -52,7 +52,7 @@ const page =  async () => {
           ))}
           <p>There are no interviews avaliable.</p>
         </div>
-      </section>
+      </section> */}
 
     </>
   )
