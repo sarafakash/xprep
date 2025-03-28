@@ -1,6 +1,5 @@
 import InterviewCard from '@/components/InterviewCard'
 import { Button } from '@/components/ui/button'
-import { dummyInterviews } from '@/constants'
 import { getCurrentUser, getInterviewByUserId } from '@/lib/dbactions'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,17 +19,17 @@ const page =  async () => {
           <p className='text-[12px] md:text-md lg:text-3xl'>
             Practice on real interview questions & get instant feedback
           </p>
-          <Button asChild className= "btn-primary max-sm:w-full ring-2 ring-offset-dark-100 hover:ring-white">
+          <Button asChild className= "btn-primary max-sm:w-full  w-20 ring-2 ring-offset-dark-100 hover:ring-white">
             <Link href={"/interview"}>Generate an Interview</Link>
           </Button>
         </div>
 
-        <Image src="/robot.png" alt='robo-dude' width={400} height={400} className='max-sm:w-70 max-sm:h-60'/>
+        <Image src="/robot.png" alt='robo-dude' width={400} height={400} className='max-sm:w-44 max-sm:h-35'/>
 
       </section>
 
       <section className='flex flex-col mt-8 gap-6'>
-        <h2>Your Generated Interviews</h2>
+        <h2 >Your Generated Interviews</h2>
         <div className='interviews-section'>
           {
             hasPastInterviews? (
