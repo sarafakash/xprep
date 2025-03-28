@@ -27,7 +27,7 @@ export async function POST(req : Request) {
         if(!unhashedPassword)
             return NextResponse.json({success : false, message : "Invalid credentials."}, {status : 401})
 
-        console.log("debug1")
+        // console.log("debug1")
 
         let token;
 

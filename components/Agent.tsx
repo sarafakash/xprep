@@ -61,8 +61,8 @@ const Agent = ({userName, userId, type, interviewId, questions} : AgentProps) =>
 
 
     const handleGenerateFeedback = async(messages: SavedMessage[]) => {
-        console.log("Trancscript messages", messages)
-        console.log('Generate Feedback here.')
+        // console.log("Trancscript messages", messages)
+        // console.log('Generate Feedback here.')
 
         const {success, feedbackId} = await createFeedback({
             interviewId: interviewId!,

@@ -92,7 +92,7 @@ export async function createFeedback(params : CreateFeedbackParams) {
             feedbackId : feedback.id 
         }
     } catch (error) {
-        console.log("Error saving feedback.",error);
+        // console.log("Error saving feedback.",error);
         return {
             success : false
         }

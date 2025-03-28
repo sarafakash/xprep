@@ -19,7 +19,7 @@ const page =  async () => {
           <p className='text-[12px] md:text-md lg:text-3xl'>
             Practice on real interview questions & get instant feedback
           </p>
-          <Button asChild className= "btn-primary max-sm:w-full  w-20 ring-2 ring-offset-dark-100 hover:ring-white">
+          <Button asChild className= "btn-primary max-sm:w-full  ring-2 ring-offset-dark-100 hover:ring-white">
             <Link href={"/interview"}>Generate an Interview</Link>
           </Button>
         </div>

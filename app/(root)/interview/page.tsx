@@ -5,7 +5,7 @@ import { getCurrentUser } from "@/lib/dbactions"
 const page = async() => {
 
   const userData = await getCurrentUser();
-  console.log(userData);
+  // console.log(userData);
 
   return (
     <>
